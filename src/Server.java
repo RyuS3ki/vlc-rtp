@@ -192,5 +192,16 @@ public class Server extends JFrame {
       System.exit(0);
     }
   }
+  
+  /* Piece of code taken from Caprica Software examples */
+  final String formatRtpStream(String servAddress, int servPort) {
+      StringBuilder sb = new StringBuilder(60);
+      sb.append(":sout=#rtp{dst=");
+      sb.append(servAddress);
+      sb.append(",port=");
+      sb.append(servPort);
+      sb.append(",mux=ts}");
+      return sb.toString();
+  }
 
 } //end of Server

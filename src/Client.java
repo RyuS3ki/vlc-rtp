@@ -100,9 +100,9 @@ public class Client{
         // Get options
         System.out.println("Enter server IP: ");
         String serverIP = kb.nextLine();
-        int serverPort = kb.nextInt();
+        String serverPort = kb.nextLine();
         
-        final String mrl = formatRtpStream(serverIP, serverPort);
+        final String mrl = "rtp://@"+serverIP+":"+serverPort;
         
         //Makes visible the window
         frame.setContentPane(contentPane);
@@ -112,16 +112,7 @@ public class Client{
         
     }
     
-    /* Piece of code taken from Caprica Software examples */
-    final String formatRtpStream(String servAddress, int servPort) {
-        StringBuilder sb = new StringBuilder(60);
-        sb.append(":sout=#rtp{dst=");
-        sb.append(servAddress);
-        sb.append(",port=");
-        sb.append(servPort);
-        sb.append(",mux=ts}");
-        return sb.toString();
-    }
+    
     
 }
 
