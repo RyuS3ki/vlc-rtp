@@ -49,7 +49,15 @@ public class Client{
         contentPane.setLayout(new BorderLayout());
         
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        /*{
+        	    @Override
+        	    protected String[] onGetMediaPlayerFactoryArgs() {
+        	        String[] options = {":sout=#", ":no-sout-all", ":sout-keep"};
+        	        return options;
+        	    }
+        }*/
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
+        
         
         JPanel controlsPane = new JPanel();
         JButton playButton = new JButton("Play");
@@ -92,15 +100,25 @@ public class Client{
         // Get options
         System.out.println("Enter server IP: ");
         String serverIP = kb.nextLine();
-        String serverPort = "10649";
+        int serverPort = 10649;
         
-        String mrl = "rtp://"+serverIP+":"+serverPort;
+        String mrl = formatRtpStream(serverIP, serverPort);
         
         //Makes visible the window
         frame.setContentPane(contentPane);
         frame.setVisible(true);
         mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
         
+    }
+    
+    final String formatRtpStream(String servAddress, int servPort) {
+        StringBuilder sb = new StringBuilder(60);
+        sb.append(":sout=#rtp{dst=");
+        sb.append(servAddress);
+        sb.append(",port=");
+        sb.append(servPort);
+        sb.append(",mux=ts}");
+        return sb.toString();
     }
     
 }
