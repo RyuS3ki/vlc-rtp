@@ -54,8 +54,8 @@ public class Client{
                 System.out.println("Enter server IP: ");
                 String serverIP = kb.nextLine();
                 String serverPort = "10649";
-                String[] options = {serverIP, serverPort};
-                MediaPlayerFactory factory = new MediaPlayerFactory(options);
+                String[] opt = {serverIP, serverPort};
+                MediaPlayerFactory factory = new MediaPlayerFactory(opt);
             }
         };
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
