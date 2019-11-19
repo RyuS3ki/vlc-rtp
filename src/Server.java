@@ -25,12 +25,17 @@ public class Server {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Server(args);
+                try {
+					new Server(args);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
     
-    private Server(String[] args) {
+    private Server(String[] args) throws Exception {
         JFrame frame = new JFrame("vlcj");
         
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
