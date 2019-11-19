@@ -8,10 +8,12 @@ import javax.swing.SwingUtilities;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 
 public class Client{
     
-
+	Scanner kb = new Scanner(System.in);
+	
     private final JFrame frame;
     
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
@@ -46,7 +48,16 @@ public class Client{
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         
-        mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        mediaPlayerComponent = new EmbeddedMediaPlayerComponent() {
+        	@Override
+            protected MediaPlayerFactory onGetMediaPlayerFactory() {
+                System.out.println("Enter server IP: ");
+                String serverIP = kb.nextLine();
+                String serverPort = "10649";
+                String[] options = {serverIP, serverPort};
+                MediaPlayerFactory factory = new MediaPlayerFactory(options);
+            }
+        };
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
         
         JPanel controlsPane = new JPanel();
@@ -87,10 +98,14 @@ public class Client{
             }
         });
         
+        // Get options
+        
+        
+        
         //Makes visible the window
         frame.setContentPane(contentPane);
         frame.setVisible(true);
-        mediaPlayerComponent.getMediaPlayer().playMedia("movie.mp4");
+        mediaPlayerComponent.getMediaPlayer().playMedia(options);
         
     }
     
