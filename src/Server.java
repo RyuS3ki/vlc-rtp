@@ -41,13 +41,9 @@ public class Server {
         
         String opt = formatRtpStream("239.0.0.1", 5004);
         mediaPlayer.playMedia(media, opt, ":sout-all", ":sout-keep");
+        
         // Don't exit
-        try {
-			Thread.currentThread().join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        Thread.currentThread().join();
     }
     
     /* Piece of code taken from https://github.com/caprica/vlcj */
