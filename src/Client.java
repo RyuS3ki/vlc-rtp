@@ -102,11 +102,12 @@ public class Client{
         String serverIP = kb.nextLine();
         int serverPort = kb.nextInt();
         
-        String mrl = formatRtpStream(serverIP, serverPort);
+        final String mrl = formatRtpStream(serverIP, serverPort);
         
         //Makes visible the window
         frame.setContentPane(contentPane);
         frame.setVisible(true);
+        System.out.println(mrl);
         mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
         
     }
