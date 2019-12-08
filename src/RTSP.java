@@ -92,35 +92,44 @@ public class RTSP {
 	//------------------------------------
 	//Send RTSP Request
 	//------------------------------------
-	//TO COMPLETE
-	//.............
 	public void send_request(String request_type) {
 		try {
-      //Check request_type and state variables to see if the RTSP message can be sent
-      //if((request_type).compareTo("SETUP") == 0) && (state == READY)...
-      //...
-
-      //Use the RTSPBufferedWriter to write to the RTSP socket
-
-      //write the request line:
-      //RTSPBufferedWriter.write(...);
-
-      //write the CSeq line:
-      //......
-
-      //check if request_type is equal to "SETUP" and in this case write the Transport: line advertising to the server the port used to receive the RTP packets RTP_PORT
-      //if ....
-      //otherwise, write the Session line from the RTSPid field
-      //else ....
-
-      RTSPBufferedWriter.flush();
-
-      //Increment CSeq
-      //...
-
-      //Wait for the response and, in case of success, update the state variable
-      //...
-
+			int save_state = -1;
+			String RTSPmrl = "rtsp://"+ServerHost+"/"+VideoFileName;
+			RTSPSeqNb += 1;
+			//Check request_type and state variables to see if the RTSP message can be sent
+			if(((request_type).compareTo("SETUP") == 0) && (state == INIT)){
+				save_state = READY;
+				RTSPBufferedWriter.write("SETUP "+RTSPmrl+" RTSP/1.0"+CRLF);
+			} else if (((request_type).compareTo("PLAY") == 0) && (state == READY)){
+				save_state = PLAYING;
+				RTSPBufferedWriter.write("PLAY "+RTSPmrl+" RTSP/1.0"+CRLF);
+			} else if (((request_type).compareTo("PAUSE") == 0) && (state == READY)){
+				save_state = READY;
+				RTSPBufferedWriter.write("PAUSE "+RTSPmrl+" RTSP/1.0"+CRLF);
+			} else if (((request_type).compareTo("STOP") == 0) && (state == (PLAYING | READY))){
+				save_state = INIT;
+				RTSPBufferedWriter.write("TEARDOWN "+VideoFileName+" RTSP/1.0"+CRLF);
+			}
+	
+	        if (save_state != -1){
+	        	//write the request line:
+		        RTSPBufferedWriter.write("CSeq: "+RTSPSeqNb);
+		
+		        //check if request_type is equal to "SETUP" and in this case write the Transport: line advertising to the server the port used to receive the RTP packets RTP_PORT
+		        if((request_type).compareTo("SETUP") == 0){
+			        RTSPBufferedWriter.write("Transport: RTP/UDP; client_port= "+RTSP_PORT+CRLF);
+		        } else {//otherwise, write the Session line from the RTSPid field
+			        RTSPBufferedWriter.write("Session: "+RTSPid+CRLF);
+				}
+		        RTSPBufferedWriter.flush();
+		
+		        //Wait for the response and, in case of success, update the state variable
+		        if(parse_response() != 0) {
+		    	    state = save_state;
+		        }
+	        }
+	        
 		} catch (Exception ex) {
 			System.out.println("Exception caught: " + ex);
 			System.exit(0);

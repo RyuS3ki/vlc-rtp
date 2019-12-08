@@ -101,9 +101,7 @@ public class Server2 extends JFrame {
         this.setVisible(true);
 
         //update state
-        //state = ...
-        //System.out.println("New RTSP state: ... ");
-
+        state = READY;
       } else if ((request_type == PLAY) && (state == READY)) {
         //send response
         send_response();
@@ -112,13 +110,22 @@ public class Server2 extends JFrame {
         //...
 
         //update state
-        //state = ...
-        //System.out.println("New RTSP state: ... ");
+        state = PLAYING;
+        //System.out.println("New RTSP state: ");
 
-      } //else if ((request_type == ...
+      } else if ((request_type == TEARDOWN) && (state == READY)) {
+    	  
+      } else if ((request_type == PLAY) && (state == READY)) {
+    	  
+      } else if ((request_type == TEARDOWN) && (state == PLAYING)) {
+    	  
+      } else if ((request_type == PAUSE) && (state == PLAYING)) {
 
-      //else ... fail gracefully
+      } else { //... fail gracefully
+    	  
+      }
     }
+    System.out.println("New RTSP state: "+state);
   }
 
   //------------------------------------

@@ -10,13 +10,15 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 
-public class Client{
+public class Client {
     
 	Scanner kb = new Scanner(System.in);
 	
     private final JFrame frame;
     
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
+    
+    private final RTSP stream;
     
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
@@ -30,8 +32,23 @@ public class Client{
     
     public Client(String[] args) {
         
+    	// Get options
+        System.out.println("Enter server IP: ");
+        String serverName = kb.nextLine();
+        System.out.println("Enter server port: ");
+        int serverRTPPort = kb.nextInt();
+        System.out.println("Enter path to media: ");
+        String VideoFileName = kb.nextLine();
+        int serverRTSPPort = 10649;
         
+        stream = new RTSP(serverName, serverRTPPort, serverRTSPPort, VideoFileName);
+    	
         frame = new JFrame("Media Player");
+        
+        JPanel contentPane = new JPanel();
+        contentPane.setLayout(new BorderLayout());
+        
+        mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         
         //TO DO! choose the correct arguments for the methods below. Add more method calls as necessary
         frame.setLocation(100, 100);
@@ -45,21 +62,12 @@ public class Client{
             }
         });
         
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout());
-        
-        mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-        /*{
-        	    @Override
-        	    protected String[] onGetMediaPlayerFactoryArgs() {
-        	        String[] options = {":sout=#", ":no-sout-all", ":sout-keep"};
-        	        return options;
-        	    }
-        }*/
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
         
         
         JPanel controlsPane = new JPanel();
+        JButton setupButton = new JButton("Setup");
+        controlsPane.add(setupButton);
         JButton playButton = new JButton("Play");
         controlsPane.add(playButton);
         JButton pauseButton = new JButton("Pause");
@@ -73,8 +81,7 @@ public class Client{
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TO DO!! configure the playback of the video received via RTP, or resume a paused playback.
-            	mediaPlayerComponent.getMediaPlayer().play();
+            	stream.send_request("PLAY");
             }
         });
         
@@ -82,37 +89,40 @@ public class Client{
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TO DO!!
-            	mediaPlayerComponent.getMediaPlayer().pause();
+                stream.send_request("PAUSE");
             }
         });
         
-        
-        //TO DO! implement a STOP button to stop video playback and exit the application.
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TO DO!!
-            	mediaPlayerComponent.getMediaPlayer().stop();
+            	stream.send_request("TEARDOWN");
             }
         });
         
-        // Get options
-        System.out.println("Enter server IP: ");
-        String serverIP = kb.nextLine();
-        String serverPort = kb.nextLine();
+        setupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	stream.send_request("SETUP");
+            }
+        });
         
-        final String mrl = "rtp://@"+serverIP+":"+serverPort;
+        final String mrl = formatRtpStream(serverName, serverRTPPort);
         
         //Makes visible the window
         frame.setContentPane(contentPane);
         frame.setVisible(true);
-        System.out.println(mrl);
-        mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
+        mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
         
     }
-    
-    
-    
+    private static String formatRtpStream(String serverName, int serverRTPPort) {
+        StringBuilder sb = new StringBuilder(60);
+        sb.append(":sout=#rtp{dst=");
+        sb.append(serverName);
+        sb.append(':');
+        sb.append(serverRTPPort);
+        sb.append("}");
+        return sb.toString();
+    }
 }
 
