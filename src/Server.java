@@ -109,7 +109,7 @@ public class Server extends JFrame{
           send_response();
 
           //show GUI:
-          this.setVisible(true);
+          //this.setVisible(true);
           //TODO: El problema esta aqui:
           String opt = formatRtpStream("230.0.0.1", RTP_PORT);
           System.out.println("RTP Port:"+RTP_PORT);

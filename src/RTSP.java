@@ -112,7 +112,7 @@ public class RTSP {
 			} else if (((request_type).compareTo("PAUSE") == 0) && (state == READY)){
 				save_state = READY;
 				RTSPBufferedWriter.write("PAUSE "+RTPmrl+" RTSP/1.0"+CRLF);
-			} else if (((request_type).compareTo("STOP") == 0) && (state == (PLAYING | READY))){
+			} else if (((request_type).compareTo("TEARDOWN") == 0) && (state == (PLAYING | READY))){
 				save_state = INIT;
 				RTSPBufferedWriter.write("TEARDOWN "+VideoFileName+" RTSP/1.0"+CRLF);
 			}
@@ -133,6 +133,7 @@ public class RTSP {
 		        //Wait for the response and, in case of success, update the state variable
 		        if(parse_response() != 0) {
 		    	    state = save_state;
+		    	    System.out.println(state);
 		        }
 	        }
 	        
