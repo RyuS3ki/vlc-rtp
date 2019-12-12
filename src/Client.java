@@ -20,6 +20,8 @@ public class Client {
     
     private final RTSP stream;
     
+    String ServerIPAddr;
+    
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
@@ -38,6 +40,12 @@ public class Client {
         int RTPPort = 11649;
         String VideoFileName = "movie.mp4";
         int serverRTSPPort = 10649;
+        try {
+        	ServerIPAddr = InetAddress.getByName(serverName).getHostAddress();
+        } catch (Exception e) {
+        	System.out.println("Caught exception: "+e);
+        	System.exit(0);
+        }
         
         stream = new RTSP(serverName, serverRTSPPort, RTPPort, VideoFileName);
     	
@@ -80,7 +88,7 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("PLAY");
-            	final String mrl = formatRtpStream(serverName, RTPPort);
+            	final String mrl = formatRtpStream(ServerIPAddr, RTPPort);
             	mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
             }
         });
@@ -118,7 +126,7 @@ public class Client {
         sb.append(serverName);
         sb.append(",port=");
         sb.append(serverRTPPort);
-        sb.append("}");
+        sb.append(",mux=ts}");
         return sb.toString();
     }
 }
