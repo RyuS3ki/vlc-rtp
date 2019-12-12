@@ -251,7 +251,7 @@ public class Server extends JFrame{
         StringBuilder sb = new StringBuilder(60);
         sb.append(":sout=#rtp{dst=");
         sb.append(serverAddress);
-        sb.append(':');
+        sb.append(",port=");
         sb.append(RTP_PORT);
         sb.append("}");
         return sb.toString();
