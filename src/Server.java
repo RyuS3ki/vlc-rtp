@@ -246,7 +246,7 @@ public class Server extends JFrame{
         RTSPBufferedWriter.write("CSeq: "+RTSPSeqNb+CRLF);
         RTSPBufferedWriter.write("Session: "+RTSP_ID+CRLF);
         RTSPBufferedWriter.flush();
-        //System.out.println("RTSP Server - Sent response to Client.");
+        System.out.println("RTSP Server - Sent response to Client.");
       } catch (Exception ex) {
         System.out.println("Exception caught 3: " + ex);
         System.exit(0);
