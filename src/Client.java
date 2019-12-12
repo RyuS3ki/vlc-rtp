@@ -35,8 +35,7 @@ public class Client {
     	// Get options
         System.out.println("Enter server name: ");
         String serverName = kb.nextLine();
-        System.out.println("Enter RTP port: ");
-        int RTPPort = kb.nextInt();
+        int RTPPort = 11649;
         String VideoFileName = "./movie.mp4";
         int serverRTSPPort = 10649;
         
