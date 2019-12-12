@@ -121,7 +121,7 @@ public class RTSP {
 	
 	        if (save_state != -1){
 	        	//write the request line:
-		        RTSPBufferedWriter.write("CSeq: "+RTSPSeqNb);
+		        RTSPBufferedWriter.write("CSeq: "+RTSPSeqNb+CRLF);
 		
 		        //check if request_type is equal to "SETUP" and in this case write the Transport: line advertising to the server the port used to receive the RTP packets RTP_PORT
 		        if((request_type).compareTo("SETUP") == 0){
@@ -129,6 +129,7 @@ public class RTSP {
 		        } else {//otherwise, write the Session line from the RTSPid field
 			        RTSPBufferedWriter.write("Session: "+RTSPid+CRLF);
 				}
+		        System.out.println(RTSPBufferedWriter);
 		        RTSPBufferedWriter.flush();
 		
 		        //Wait for the response and, in case of success, update the state variable
