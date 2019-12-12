@@ -58,27 +58,16 @@ public class Server extends JFrame{
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Server(args);
-            }
-        });
-    }
-    
-    /*
-    public static void main(final String[] args) {
-        new NativeDiscovery().discover();
-        SwingUtilities.invokeLater(new Runnable() {
           @Override
           public void run() {
             try {
               new Server(args);
             } catch (Exception e) {
-              System.out.println("Exception starting server");
-            }
+              System.out.println(e);
+            } /* "Exception starting server" */
           }
         });
-    }*/
+    }
     
     //--------------------------------
     //Constructor
