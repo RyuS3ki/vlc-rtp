@@ -37,8 +37,7 @@ public class Client {
         String serverName = kb.nextLine();
         System.out.println("Enter RTP port: ");
         int serverRTPPort = kb.nextInt();
-        System.out.println("Enter path to media: ");
-        String VideoFileName = kb.nextLine();
+        String VideoFileName = "./movie.mp4";
         int serverRTSPPort = 10649;
         
         stream = new RTSP(serverName, serverRTPPort, serverRTSPPort, VideoFileName);
