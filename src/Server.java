@@ -54,6 +54,18 @@ public class Server extends JFrame{
 
     final static String CRLF = "\r\n";
     
+    
+    public static void main(final String[] args) {
+        new NativeDiscovery().discover();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Server(args);
+            }
+        });
+    }
+    
+    /*
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
@@ -66,7 +78,7 @@ public class Server extends JFrame{
             }
           }
         });
-    }
+    }*/
     
     //--------------------------------
     //Constructor
