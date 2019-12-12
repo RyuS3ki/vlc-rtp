@@ -33,9 +33,9 @@ public class Client {
     public Client(String[] args) {
         
     	// Get options
-        System.out.println("Enter server IP: ");
+        System.out.println("Enter server name: ");
         String serverName = kb.nextLine();
-        System.out.println("Enter server port: ");
+        System.out.println("Enter RTP port: ");
         int serverRTPPort = kb.nextInt();
         System.out.println("Enter path to media: ");
         String VideoFileName = kb.nextLine();
