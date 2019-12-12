@@ -103,6 +103,7 @@ public class Server extends JFrame{
       //loop to handle RTSP requests
       while(true) {
         int request_type = parse_request(); //blocking
+        System.out.println(request_type);
 
         if ((request_type == SETUP) && (state == INIT)) {
           //send response
