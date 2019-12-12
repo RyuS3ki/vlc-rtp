@@ -178,7 +178,7 @@ public class Server extends JFrame{
       try {
         //parse request line and extract the request_type:
         String RequestLine = RTSPBufferedReader.readLine();
-        //System.out.println("RTSP Server - Received from Client:");
+        System.out.println("RTSP Server - Received from Client:");
         System.out.println(RequestLine);
 
         StringTokenizer tokens = new StringTokenizer(RequestLine);
@@ -243,12 +243,12 @@ public class Server extends JFrame{
     }
     
     /* Piece of code taken from https://github.com/caprica/vlcj */
-    private static String formatRtpStream(String serverAddress, int serverPort) {
+    private static String formatRtpStream(String serverAddress, int RTP_PORT) {
         StringBuilder sb = new StringBuilder(60);
         sb.append(":sout=#rtp{dst=");
         sb.append(serverAddress);
         sb.append(':');
-        sb.append(serverPort);
+        sb.append(RTP_PORT);
         sb.append("}");
         return sb.toString();
     }

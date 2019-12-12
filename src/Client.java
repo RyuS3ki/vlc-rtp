@@ -36,11 +36,11 @@ public class Client {
         System.out.println("Enter server name: ");
         String serverName = kb.nextLine();
         System.out.println("Enter RTP port: ");
-        int serverRTPPort = kb.nextInt();
+        int RTPPort = kb.nextInt();
         String VideoFileName = "./movie.mp4";
         int serverRTSPPort = 10649;
         
-        stream = new RTSP(serverName, serverRTPPort, serverRTSPPort, VideoFileName);
+        stream = new RTSP(serverName, RTPPort, serverRTSPPort, VideoFileName);
     	
         frame = new JFrame("Media Player");
         
@@ -106,7 +106,7 @@ public class Client {
             }
         });
         
-        final String mrl = formatRtpStream(serverName, serverRTPPort);
+        final String mrl = formatRtpStream(serverName, RTPPort);
         
         //Makes visible the window
         frame.setContentPane(contentPane);

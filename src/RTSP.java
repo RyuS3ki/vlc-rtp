@@ -118,7 +118,7 @@ public class RTSP {
 		
 		        //check if request_type is equal to "SETUP" and in this case write the Transport: line advertising to the server the port used to receive the RTP packets RTP_PORT
 		        if((request_type).compareTo("SETUP") == 0){
-			        RTSPBufferedWriter.write("Transport: RTP/UDP; client_port= "+RTSP_PORT+CRLF);
+			        RTSPBufferedWriter.write("Transport: RTP/UDP; client_port= "+RTP_PORT+CRLF);
 		        } else {//otherwise, write the Session line from the RTSPid field
 			        RTSPBufferedWriter.write("Session: "+RTSPid+CRLF);
 				}
