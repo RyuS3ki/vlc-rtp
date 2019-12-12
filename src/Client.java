@@ -36,7 +36,7 @@ public class Client {
         System.out.println("Enter server name: ");
         String serverName = kb.nextLine();
         int RTPPort = 11649;
-        String VideoFileName = "./movie.mp4";
+        String VideoFileName = "movie.mp4";
         int serverRTSPPort = 10649;
         
         stream = new RTSP(serverName, serverRTSPPort, RTPPort, VideoFileName);
