@@ -80,6 +80,8 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("PLAY");
+            	final String mrl = formatRtpStream(serverName, RTPPort);
+            	mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
             }
         });
         
@@ -102,15 +104,12 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("SETUP");
-            	final String mrl = formatRtpStream(serverName, RTPPort);
-            	//Makes visible the window
-                frame.setContentPane(contentPane);
-                frame.setVisible(true);
-                mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
             }
         });
         
-        
+      //Makes visible the window
+        frame.setContentPane(contentPane);
+        frame.setVisible(true);
         
     }
     private static String formatRtpStream(String serverName, int serverRTPPort) {
