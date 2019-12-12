@@ -98,7 +98,7 @@ public class Server extends JFrame{
       RTSPBufferedReader = new BufferedReader(new InputStreamReader(RTSPsocket.getInputStream()));
       RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(RTSPsocket.getOutputStream()));
 
-      String opt = formatRtpStream(serverAddress.toString(), 5004);
+      String opt = formatRtpStream(ClientIPAddr.getHostAddress(), RTP_PORT);
       
       //loop to handle RTSP requests
       while(true) {
