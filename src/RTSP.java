@@ -43,7 +43,7 @@ public class RTSP {
       // Problems with lookup, casting String to byte[] IPAddr
       
       InetAddress ServerIPAddr = InetAddress.getByName(ServerHost);
-      print("Server IP is: "+ServerIPAddr+", Port is: "+RTSP_PORT);
+      System.out.println("Server IP is: "+ServerIPAddr+", Port is: "+RTSP_PORT);
       RTSPsocket = new Socket(ServerIPAddr, RTSP_PORT);
 
       //Set input and output stream filters:
