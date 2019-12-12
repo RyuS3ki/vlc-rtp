@@ -86,12 +86,18 @@ public class Server extends JFrame{
 
       //GUI initialization
       this.setTitle("Server");
+      /*
       mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
       MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(args);
       HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
+      */
+      MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(args);
+      HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
+      /*
       this.setContentPane(mediaPlayerComponent);
       this.setLocation(600, 100);
       this.setSize(500, 500);
+      */
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       //Set input and output stream filters:
@@ -114,7 +120,10 @@ public class Server extends JFrame{
           //TODO: El problema esta aqui:
           String opt = formatRtpStream("230.0.0.1", RTP_PORT);
           System.out.println("RTP Port:"+RTP_PORT);
-          mediaPlayer.playMedia("movie.mp4", opt, ":sout-all", ":sout-keep");
+          mediaPlayer.playMedia("movie.mp4", opt, ":no-sout-rtp-sap",
+                  ":no-sout-standard-sap",
+                  ":sout-all",
+                  ":sout-keep");
 
           //update state
           state = READY;
@@ -252,7 +261,7 @@ public class Server extends JFrame{
         sb.append(serverAddress);
         sb.append(",port=");
         sb.append(RTP_PORT);
-        sb.append("}");
+        sb.append(",mux=ts}");
         return sb.toString();
     }
     
