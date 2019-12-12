@@ -114,6 +114,7 @@ public class Server extends JFrame{
           String opt = formatRtpStream(ClientIPAddr.getHostAddress(), RTP_PORT);
           System.out.println("RTP Port:"+RTP_PORT);
           System.out.println(opt);
+          System.out.println(VideoFileName);
           mediaPlayer.playMedia(VideoFileName, opt, ":sout-all", ":sout-keep");
 
           //update state
