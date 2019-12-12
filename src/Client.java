@@ -11,17 +11,17 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 
 public class Client {
-    
+
 	Scanner kb = new Scanner(System.in);
-	
+
     private final JFrame frame;
-    
+
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
-    
+
     private final RTSP stream;
-    
+
     String ServerIPAddr = "230.0.0.1";
-    
+
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
@@ -31,25 +31,25 @@ public class Client {
             }
         });
     }
-    
+
     public Client(String[] args) {
-        
+
     	// Get options
         System.out.println("Enter server name: ");
         String serverName = kb.nextLine();
         int RTPPort = 11649;
         String VideoFileName = "movie.mp4";
         int serverRTSPPort = 10649;
-        
+
         stream = new RTSP(serverName, serverRTSPPort, RTPPort, VideoFileName);
-    	
+
         frame = new JFrame("Media Player");
-        
+
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
-        
+
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-        
+
         //TO DO! choose the correct arguments for the methods below. Add more method calls as necessary
         frame.setLocation(100, 100);
         frame.setSize(600, 400);
@@ -61,10 +61,10 @@ public class Client {
                 System.exit(0);
             }
         });
-        
+
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
-        
-        
+
+
         JPanel controlsPane = new JPanel();
         JButton setupButton = new JButton("Setup");
         controlsPane.add(setupButton);
@@ -75,18 +75,18 @@ public class Client {
         JButton stopButton = new JButton("Stop");
         controlsPane.add(stopButton);
         contentPane.add(controlsPane, BorderLayout.SOUTH);
-        
+
         //Handler for PLAY button
         //-----------------------
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("PLAY");
-            	
+
             	//mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
             }
         });
-        
+
         //TO DO! implement a PAUSE button to pause video playback.
         pauseButton.addActionListener(new ActionListener() {
             @Override
@@ -94,27 +94,27 @@ public class Client {
                 stream.send_request("PAUSE");
             }
         });
-        
+
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("TEARDOWN");
             }
         });
-        
+
         setupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("SETUP");
             	final String mrl = formatRtpStream(ServerIPAddr, RTPPort);
-            	mediaPlayerComponent.getMediaPlayer().prepareMedia(VideoFileName, mrl);
+            	mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
             }
         });
-        
+
       //Makes visible the window
         frame.setContentPane(contentPane);
         frame.setVisible(true);
-        
+
     }
     private static String formatRtpStream(String serverName, int serverRTPPort) {
         StringBuilder sb = new StringBuilder(60);
@@ -126,4 +126,3 @@ public class Client {
         return sb.toString();
     }
 }
-

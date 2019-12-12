@@ -24,7 +24,7 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
 public class Server extends JFrame{
-    
+
     InetAddress ClientIPAddr; //Client IP address
     int RTP_PORT = 0; //destination port for RTP packets (given by the RTSP Client)
 
@@ -53,8 +53,8 @@ public class Server extends JFrame{
     int first_time = 0; //0 if the video is not load yet
 
     final static String CRLF = "\r\n";
-    
-    
+
+
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
         SwingUtilities.invokeLater(new Runnable() {
@@ -68,7 +68,7 @@ public class Server extends JFrame{
           }
         });
     }
-    
+
     //--------------------------------
     //Constructor
     //--------------------------------
@@ -103,9 +103,9 @@ public class Server extends JFrame{
       //Set input and output stream filters:
       RTSPBufferedReader = new BufferedReader(new InputStreamReader(RTSPsocket.getInputStream()));
       RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(RTSPsocket.getOutputStream()));
-      
-      
-      
+
+
+
       //loop to handle RTSP requests
       while(true) {
         int request_type = parse_request(); //blocking
@@ -118,12 +118,6 @@ public class Server extends JFrame{
           //show GUI:
           //this.setVisible(true);
           //TODO: El problema esta aqui:
-          String opt = formatRtpStream("230.0.0.1", RTP_PORT);
-          System.out.println("RTP Port:"+RTP_PORT);
-          mediaPlayer.playMedia("movie.mp4", opt, ":no-sout-rtp-sap",
-                  ":no-sout-standard-sap",
-                  ":sout-all",
-                  ":sout-keep");
 
           //update state
           state = READY;
@@ -134,12 +128,17 @@ public class Server extends JFrame{
           send_response();
 
           //start media player
-          mediaPlayer.play();
+          String opt = formatRtpStream("230.0.0.1", RTP_PORT);
+          System.out.println("RTP Port:"+RTP_PORT);
+          mediaPlayer.playMedia("movie.mp4", opt, ":no-sout-rtp-sap",
+                  ":no-sout-standard-sap",
+                  ":sout-all",
+                  ":sout-keep");
 
           //update state
           state = PLAYING;
           System.out.println("New RTSP state: PLAYING");
-        
+
         } else if ((request_type == TEARDOWN) && (state == READY)) {
             //send response
             send_response();
@@ -150,7 +149,7 @@ public class Server extends JFrame{
             //update state
             state = TEARDOWN;
             System.out.println("New RTSP state: TEARDOWN");
-          
+
         } else if ((request_type == PAUSE) && (state == PLAYING)) {
             //send response
             send_response();
@@ -161,7 +160,7 @@ public class Server extends JFrame{
             //update state
             state = READY;
             System.out.println("New RTSP state: READY");
-            
+
         } else if ((request_type == TEARDOWN) && (state == PLAYING)) {
             //send response
             send_response();
@@ -253,7 +252,7 @@ public class Server extends JFrame{
         System.exit(0);
       }
     }
-    
+
     /* Piece of code taken from https://github.com/caprica/vlcj */
     private static String formatRtpStream(String serverAddress, int RTP_PORT) {
         StringBuilder sb = new StringBuilder(60);
@@ -264,5 +263,5 @@ public class Server extends JFrame{
         sb.append(",mux=ts}");
         return sb.toString();
     }
-    
+
 }
