@@ -45,10 +45,13 @@ public class RTSP {
       InetAddress ServerIPAddr = InetAddress.getByName(ServerHost);
       System.out.println("Server IP is: "+ServerIPAddr+", Port is: "+RTSP_PORT);
       RTSPsocket = new Socket(ServerIPAddr, RTSP_PORT);
-
+      
+      //System.out.println("");
       //Set input and output stream filters:
       RTSPBufferedReader = new BufferedReader(new InputStreamReader(RTSPsocket.getInputStream()) );
       RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(RTSPsocket.getOutputStream()) );
+      
+      System.out.println("RTSP socket connected");
 
     } catch (Exception e) {
       System.out.println(e + " " + ServerHost + RTSP_PORT);
