@@ -39,7 +39,7 @@ public class Client {
         String VideoFileName = "./movie.mp4";
         int serverRTSPPort = 10649;
         
-        stream = new RTSP(serverName, RTPPort, serverRTSPPort, VideoFileName);
+        stream = new RTSP(serverName, serverRTSPPort, RTPPort, VideoFileName);
     	
         frame = new JFrame("Media Player");
         
