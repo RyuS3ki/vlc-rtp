@@ -107,7 +107,7 @@ public class Client {
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("SETUP");
             	final String mrl = formatRtpStream(ServerIPAddr, RTPPort);
-            	mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
+            	mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
             }
         });
 
