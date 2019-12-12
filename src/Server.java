@@ -115,7 +115,7 @@ public class Server extends JFrame{
           System.out.println("RTP Port:"+RTP_PORT);
           System.out.println(opt);
           System.out.println(VideoFileName);
-          mediaPlayer.playMedia(VideoFileName, opt, ":sout-all", ":sout-keep");
+          mediaPlayer.playMedia("movie.mp4", opt, ":sout-all", ":sout-keep");
 
           //update state
           state = READY;
