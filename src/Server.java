@@ -111,10 +111,8 @@ public class Server extends JFrame{
           //show GUI:
           this.setVisible(true);
           //TODO: El problema esta aqui:
-          String opt = formatRtpStream(ClientIPAddr.getHostAddress(), RTP_PORT);
+          String opt = formatRtpStream("230.0.0.1", RTP_PORT);
           System.out.println("RTP Port:"+RTP_PORT);
-          System.out.println(opt);
-          System.out.println(VideoFileName);
           mediaPlayer.playMedia("movie.mp4", opt, ":sout-all", ":sout-keep");
 
           //update state

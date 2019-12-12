@@ -20,7 +20,7 @@ public class Client {
     
     private final RTSP stream;
     
-    String ServerIPAddr;
+    String ServerIPAddr = "230.0.0.1";
     
     public static void main(final String[] args) {
         new NativeDiscovery().discover();
@@ -40,12 +40,6 @@ public class Client {
         int RTPPort = 11649;
         String VideoFileName = "movie.mp4";
         int serverRTSPPort = 10649;
-        try {
-        	ServerIPAddr = InetAddress.getByName(serverName).getHostAddress();
-        } catch (Exception e) {
-        	System.out.println("Caught exception: "+e);
-        	System.exit(0);
-        }
         
         stream = new RTSP(serverName, serverRTSPPort, RTPPort, VideoFileName);
     	
