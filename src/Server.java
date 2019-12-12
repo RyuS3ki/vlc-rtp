@@ -97,8 +97,8 @@ public class Server extends JFrame{
       //Set input and output stream filters:
       RTSPBufferedReader = new BufferedReader(new InputStreamReader(RTSPsocket.getInputStream()));
       RTSPBufferedWriter = new BufferedWriter(new OutputStreamWriter(RTSPsocket.getOutputStream()));
-
-      String opt = formatRtpStream(ClientIPAddr.getHostAddress(), RTP_PORT);
+      
+      System.out.println("RTP Port:"+RTP_PORT);
       
       //loop to handle RTSP requests
       while(true) {
@@ -111,6 +111,7 @@ public class Server extends JFrame{
           //show GUI:
           this.setVisible(true);
           //TODO: El problema esta aqui:
+          String opt = formatRtpStream(ClientIPAddr.getHostAddress(), RTP_PORT);
           mediaPlayer.playMedia(VideoFileName, opt, ":sout-all", ":sout-keep");
 
           //update state
