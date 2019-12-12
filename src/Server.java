@@ -110,7 +110,7 @@ public class Server extends JFrame{
 
           //show GUI:
           this.setVisible(true);
-          
+          //TODO: El problema esta aqui:
           mediaPlayer.playMedia(VideoFileName, opt, ":sout-all", ":sout-keep");
 
           //update state

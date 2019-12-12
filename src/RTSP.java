@@ -102,18 +102,18 @@ public class RTSP {
 	public void send_request(String request_type) {
 		try {
 			int save_state = -1;
-			String RTSPmrl = "rtsp://"+ServerHost+"/"+VideoFileName;
+			String RTPmrl = "rtp://"+ServerHost+"/"+VideoFileName;
 			RTSPSeqNb += 1;
 			//Check request_type and state variables to see if the RTSP message can be sent
 			if(((request_type).compareTo("SETUP") == 0) && (state == INIT)){
 				save_state = READY;
-				RTSPBufferedWriter.write("SETUP "+RTSPmrl+" RTSP/1.0"+CRLF);
+				RTSPBufferedWriter.write("SETUP "+RTPmrl+" RTSP/1.0"+CRLF);
 			} else if (((request_type).compareTo("PLAY") == 0) && (state == READY)){
 				save_state = PLAYING;
-				RTSPBufferedWriter.write("PLAY "+RTSPmrl+" RTSP/1.0"+CRLF);
+				RTSPBufferedWriter.write("PLAY "+RTPmrl+" RTSP/1.0"+CRLF);
 			} else if (((request_type).compareTo("PAUSE") == 0) && (state == READY)){
 				save_state = READY;
-				RTSPBufferedWriter.write("PAUSE "+RTSPmrl+" RTSP/1.0"+CRLF);
+				RTSPBufferedWriter.write("PAUSE "+RTPmrl+" RTSP/1.0"+CRLF);
 			} else if (((request_type).compareTo("STOP") == 0) && (state == (PLAYING | READY))){
 				save_state = INIT;
 				RTSPBufferedWriter.write("TEARDOWN "+VideoFileName+" RTSP/1.0"+CRLF);
