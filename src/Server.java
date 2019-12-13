@@ -178,7 +178,7 @@ public class Server extends JFrame{
         	 System.out.println("Wrong operation received");
          }
         // Don't exit
-        Thread.currentThread().join();
+        //Thread.currentThread().join();
       }
     }
 
@@ -187,6 +187,7 @@ public class Server extends JFrame{
     //------------------------------------
     private int parse_request() {
       int request_type = -1;
+      System.out.println("Parsing request");
       try {
         //parse request line and extract the request_type:
         String RequestLine = RTSPBufferedReader.readLine();

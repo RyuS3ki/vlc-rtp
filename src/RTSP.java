@@ -99,8 +99,6 @@ public class RTSP {
 	//------------------------------------
 	public void send_request(String request_type) {
 		try {
-			RTSPBufferedWriter.flush();
-			System.out.println("Sending request");
 			int save_state = -1;
 			String RTPmrl = "rtp://"+ServerHost+"/"+VideoFileName;
 			RTSPSeqNb += 1;
@@ -119,8 +117,6 @@ public class RTSP {
 				save_state = INIT;
 				RTSPBufferedWriter.write("TEARDOWN "+VideoFileName+" RTSP/1.0"+CRLF);
 			}
-			
-			System.out.println("New state: "+save_state);
 	
 	        if (save_state != -1){
 	        	//write the request line:
@@ -132,7 +128,6 @@ public class RTSP {
 		        } else {//otherwise, write the Session line from the RTSPid field
 			        RTSPBufferedWriter.write("Session: "+RTSPid+CRLF);
 				}
-		        System.out.println(RTSPBufferedWriter);
 		        RTSPBufferedWriter.flush();
 		
 		        //Wait for the response and, in case of success, update the state variable
