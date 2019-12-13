@@ -125,6 +125,7 @@ public class Server extends JFrame{
 
         } else if ((request_type == PLAY) && (state == READY)) {
           //send response
+        	System.out.println("Sending response");
           send_response();
 
           //start media player
