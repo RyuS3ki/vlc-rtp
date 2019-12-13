@@ -106,8 +106,9 @@ public class Client {
             @Override
             public void actionPerformed(ActionEvent e) {
             	stream.send_request("SETUP");
-            	final String mrl = formatRtpStream(ServerIPAddr, RTPPort);
-            	mediaPlayerComponent.getMediaPlayer().playMedia(VideoFileName, mrl);
+            	//final String mrl = formatRtpStream(ServerIPAddr, RTPPort);
+            	String mrl = "rtp://"+ServerIPAddr+":"+RTPPort;
+            	mediaPlayerComponent.getMediaPlayer().playMedia(mrl);
             }
         });
 
