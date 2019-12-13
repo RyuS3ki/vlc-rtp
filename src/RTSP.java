@@ -119,6 +119,8 @@ public class RTSP {
 				save_state = INIT;
 				RTSPBufferedWriter.write("TEARDOWN "+VideoFileName+" RTSP/1.0"+CRLF);
 			}
+			
+			System.out.println("New state: "+save_state);
 	
 	        if (save_state != -1){
 	        	//write the request line:
