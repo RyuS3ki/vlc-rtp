@@ -99,6 +99,7 @@ public class RTSP {
 	//------------------------------------
 	public void send_request(String request_type) {
 		try {
+			System.out.println("Sending request");
 			int save_state = -1;
 			String RTPmrl = "rtp://"+ServerHost+"/"+VideoFileName;
 			RTSPSeqNb += 1;
