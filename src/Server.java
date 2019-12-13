@@ -123,7 +123,7 @@ public class Server extends JFrame{
           state = READY;
           System.out.println("New RTSP state: READY");
 
-        } else if ((request_type == PLAY) && (state == READY)) {
+			} else if ((request_type == PLAY) /* && (state == READY) */) {
           //send response
         	System.out.println("Sending response");
           send_response();
@@ -140,7 +140,7 @@ public class Server extends JFrame{
           state = PLAYING;
           System.out.println("New RTSP state: PLAYING");
 
-        } else if ((request_type == TEARDOWN) && (state == READY)) {
+			} else if ((request_type == TEARDOWN)/* && (state == READY) */) {
             //send response
             send_response();
 
@@ -151,7 +151,7 @@ public class Server extends JFrame{
             state = TEARDOWN;
             System.out.println("New RTSP state: TEARDOWN");
 
-        } else if ((request_type == PAUSE) && (state == PLAYING)) {
+			} else if ((request_type == PAUSE) /* && (state == PLAYING) */) {
             //send response
             send_response();
 
@@ -162,7 +162,7 @@ public class Server extends JFrame{
             state = READY;
             System.out.println("New RTSP state: READY");
 
-        } else if ((request_type == TEARDOWN) && (state == PLAYING)) {
+			} else if ((request_type == TEARDOWN) /* && (state == PLAYING) */) {
             //send response
             send_response();
 
@@ -177,8 +177,6 @@ public class Server extends JFrame{
         	 // ... fail gracefully
         	 System.out.println("Wrong operation received");
          }
-        // Don't exit
-        //Thread.currentThread().join();
       }
     }
 
@@ -187,6 +185,7 @@ public class Server extends JFrame{
     //------------------------------------
     private int parse_request() {
       int request_type = -1;
+      int save_state = -1;
       System.out.println("Parsing request");
       try {
         //parse request line and extract the request_type:
@@ -206,7 +205,6 @@ public class Server extends JFrame{
           request_type = PAUSE;
         else if ((new String(request_type_string)).compareTo("TEARDOWN") == 0)
           request_type = TEARDOWN;
-
         if (request_type == SETUP) {
           //extract VideoFileName from RequestLine
           VideoFileName = tokens.nextToken();

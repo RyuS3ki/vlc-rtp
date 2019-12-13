@@ -130,6 +130,7 @@ public class RTSP {
 			        RTSPBufferedWriter.write("Session: "+RTSPid+CRLF);
 				}
 		        RTSPBufferedWriter.flush();
+		        System.out.println("Request sent");
 		
 		        //Wait for the response and, in case of success, update the state variable
 		        if(parse_response() != 0) {
