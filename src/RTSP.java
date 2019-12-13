@@ -99,6 +99,7 @@ public class RTSP {
 	//------------------------------------
 	public void send_request(String request_type) {
 		try {
+			RTSPBufferedWriter.flush();
 			System.out.println("Sending request");
 			int save_state = -1;
 			String RTPmrl = "rtp://"+ServerHost+"/"+VideoFileName;
@@ -108,6 +109,7 @@ public class RTSP {
 				save_state = READY;
 				RTSPBufferedWriter.write("SETUP "+RTPmrl+" RTSP/1.0"+CRLF);
 			} else if (((request_type).compareTo("PLAY") == 0) && (state == READY)){
+				System.out.println("New state desired: PLAYING");
 				save_state = PLAYING;
 				RTSPBufferedWriter.write("PLAY "+RTPmrl+" RTSP/1.0"+CRLF);
 			} else if (((request_type).compareTo("PAUSE") == 0) && (state == READY)){
